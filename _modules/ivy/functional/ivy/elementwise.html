@@ -1746,8 +1746,8 @@
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
 <span class="k">def</span> <span class="nf">equal</span><span class="p">(</span>
-    <span class="n">x1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
-    <span class="n">x2</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">x1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
+    <span class="n">x2</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
@@ -1771,6 +1771,53 @@
 <span class="sd">        an array containing the element-wise results. The returned array must have a</span>
 <span class="sd">        data type of bool.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    With :code:`ivy.Array` inputs:</span>
+
+<span class="sd">    &gt;&gt;&gt; x1 = ivy.array([2., 7., 9.])</span>
+<span class="sd">    &gt;&gt;&gt; x2 = ivy.array([1., 7., 9.])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.equal(x1, x2)</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    ivy.array([False, True, True])</span>
+
+<span class="sd">    With :code:`ivy.NativeArray` inputs:</span>
+
+<span class="sd">    &gt;&gt;&gt; x1 = ivy.native_array([2.5, 7.3, 9.375])</span>
+<span class="sd">    &gt;&gt;&gt; x2 = ivy.native_array([2.5, 2.9, 9.375])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.equal(x1, x2)</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    ivy.array([True, False,  True])</span>
+
+<span class="sd">    With mixed :code:`ivy.Array` and :code:`ivy.NativeArray` inputs:</span>
+
+<span class="sd">    &gt;&gt;&gt; x1 = ivy.array([5, 6, 9])</span>
+<span class="sd">    &gt;&gt;&gt; x2 = ivy.native_array([2, 6, 2])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.equal(x1, x2)</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    ivy.array([False, True, False])</span>
+
+<span class="sd">    With :code:`ivy.Container` inputs:</span>
+
+<span class="sd">    &gt;&gt;&gt; x1 = ivy.Container(a=ivy.array([12, 3.5, 6.3]), b=ivy.array([3., 1., 0.9]))</span>
+<span class="sd">    &gt;&gt;&gt; x2 = ivy.Container(a=ivy.array([12, 2.3, 3]), b=ivy.array([2.4, 3., 2.]))</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.equal(x1, x2)</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([True, False, False]),</span>
+<span class="sd">        b: ivy.array([False, False, False])</span>
+<span class="sd">    }</span>
+
+<span class="sd">    With mixed :code:`ivy.Container` and :code:`ivy.Array` inputs:</span>
+
+<span class="sd">    &gt;&gt;&gt; x1 = ivy.Container(a=ivy.array([12., 3.5, 6.3]), b=ivy.array([3., 1., 0.9]))</span>
+<span class="sd">    &gt;&gt;&gt; x2 = ivy.array([3., 1., 0.9])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.equal(x1, x2)</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([False, False, False]),</span>
+<span class="sd">        b: ivy.array([True, True, True])</span>
+<span class="sd">    }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
@@ -2570,7 +2617,7 @@
 
 <span class="sd">    &gt;&gt;&gt; x = ivy.array([[[1.1], [float(&#39;inf&#39;)], [-6.3]]])</span>
 <span class="sd">    &gt;&gt;&gt; z = ivy.isinf(x)</span>
-<span class="sd">    &gt;&gt;&gt; print(x)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
 <span class="sd">    ivy.array([[[False],</span>
 <span class="sd">            [True],</span>
 <span class="sd">            [False]]])</span>
@@ -2682,6 +2729,12 @@
     <span class="sd">&quot;&quot;&quot;Tests each element ``x_i`` of the input array ``x`` to determine whether the</span>
 <span class="sd">    element is ``NaN``.</span>
 
+<span class="sd">    **Special cases**</span>
+
+<span class="sd">    - If ``x_i`` is ``NaN``, the result is ``True``</span>
+<span class="sd">    - If ``x_i`` is ``+infinity``, the result is ``False``</span>
+<span class="sd">    - If ``x_i`` is ``-infinity``, the result is ``False``</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x</span>
@@ -2697,6 +2750,13 @@
 <span class="sd">        ``NaN`` and ``False`` otherwise. The returned array should have a data type of</span>
 <span class="sd">        ``bool``.</span>
 
+<span class="sd">    This function conforms to the `Array API Standard</span>
+<span class="sd">    &lt;https://data-apis.org/array-api/latest/&gt;`_. This docstring is an extension of the</span>
+<span class="sd">    `docstring &lt;https://data-apis.org/array-api/latest/API_specification/generated/signatures.elementwise_functions.isnan.html&gt;`_ </span>
+<span class="sd">    in the standard. The descriptions above assume an array input for simplicity, but</span>
+<span class="sd">    the method also accepts :code:`ivy.Container` instances in place of</span>
+<span class="sd">    :code:`ivy.Array` or :code:`ivy.NativeArray` instances, as shown in the type hints</span>
+<span class="sd">    and also the examples below.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 

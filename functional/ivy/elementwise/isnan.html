@@ -203,6 +203,12 @@
 <span class="sig-prename descclassname">ivy.</span></span><span class="sig-name descname"><span class="pre">isnan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/ivy/functional/ivy/elementwise.html#isnan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.elementwise.isnan" title="Permalink to this definition"></a></dt>
 <dd><p>Tests each element <code class="docutils literal notranslate"><span class="pre">x_i</span></code> of the input array <code class="docutils literal notranslate"><span class="pre">x</span></code> to determine whether the
 element is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<p><strong>Special cases</strong></p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, the result is <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is <code class="docutils literal notranslate"><span class="pre">+infinity</span></code>, the result is <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is <code class="docutils literal notranslate"><span class="pre">-infinity</span></code>, the result is <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -215,9 +221,19 @@ inputs broadcast to.</p></li>
 <dd class="field-even"><p><a class="reference internal" href="../../../data_classes/array/array/Array.html#ivy.array.array.Array" title="ivy.array.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>ret</em> – an array containing test results. An element <code class="docutils literal notranslate"><span class="pre">out_i</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>ret</em> – an array containing test results. An element <code class="docutils literal notranslate"><span class="pre">out_i</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is
 <code class="docutils literal notranslate"><span class="pre">NaN</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise. The returned array should have a data type of
-<code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p></li>
+<li><p>This function conforms to the <a href="#id1"><span class="problematic" id="id2">`</span></a>Array API Standard</p></li>
+<li><p><strong>&lt;https</strong> (//data-apis.org/array-api/latest/&gt;`_. This docstring is an extension of the)</p></li>
+<li><p><strong>`docstring &lt;https</strong> (//data-apis.org/array-api/latest/API_specification/generated/signatures.elementwise_functions.isnan.html&gt;`_ )</p></li>
+<li><p><em>in the standard. The descriptions above assume an array input for simplicity, but</em></p></li>
+<li><p>the method also accepts <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> instances in place of</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ivy.Array</span></code> or <code class="code docutils literal notranslate"><span class="pre">ivy.NativeArray</span></code> instances, as shown in the type hints</p></li>
+<li><p><em>and also the examples below.</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,7 +241,8 @@ inputs broadcast to.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="ivy.array.array_methods.isnan">
 <span class="sig-prename descclassname">ivy.Array.</span></span><span class="sig-name descname"><span class="pre">isnan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/ivy/array/elementwise.html#ArrayWithElementwise.isnan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.array.array_methods.isnan" title="Permalink to this definition"></a></dt>
-<dd><p>ivy.Array instance method variant of <a href="./isnan/isnan_functional.html">ivy.isnan</a>. This method simpfor <a href="./isnan/isnan_functional.html">ivy.isnan</a> function, and so the docstring for ivy.isnan also applies to this
+<dd><p>ivy.Array instance method variant of <a href="./isnan/isnan_functional.html">ivy.isnan</a>. This method simply wraps
+the function, and so the docstring for <a href="./isnan/isnan_functional.html">ivy.isnan</a> also applies to this
 method with minimal changes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
