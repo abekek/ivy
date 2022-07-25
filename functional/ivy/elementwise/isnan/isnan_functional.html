@@ -204,12 +204,6 @@
 <span class="sig-prename descclassname">ivy.</span></span><span class="sig-name descname"><span class="pre">isnan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/ivy/functional/ivy/elementwise.html#isnan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.elementwise.isnan" title="Permalink to this definition"></a></dt>
 <dd><p>Tests each element <code class="docutils literal notranslate"><span class="pre">x_i</span></code> of the input array <code class="docutils literal notranslate"><span class="pre">x</span></code> to determine whether the
 element is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
-<p><strong>Special cases</strong></p>
-<ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, the result is <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is <code class="docutils literal notranslate"><span class="pre">+infinity</span></code>, the result is <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">x_i</span></code> is <code class="docutils literal notranslate"><span class="pre">-infinity</span></code>, the result is <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -237,6 +231,130 @@ inputs broadcast to.</p></li>
 </p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Array</span></code> inputs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">ivy.array([False, False, False])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">ivy.array([[False, False, False]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)],</span> <span class="p">[</span><span class="o">-</span><span class="mf">6.3</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">ivy.array([[[False],</span>
+<span class="go">            [False],</span>
+<span class="go">            [False]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">ivy.array([[ True,  True, False]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">ivy.array([[ True, False,  True, False]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">ivy.array([[False, False, False],</span>
+<span class="go">   [False, False, False],</span>
+<span class="go">   [False, False, False]])</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.NativeArray</span></code> inputs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">ivy.array([[False],</span>
+<span class="go">    [False],</span>
+<span class="go">    [True]])</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">1.23</span><span class="p">]),</span>                           <span class="n">b</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    a: ivy.array([False, True, False]),</span>
+<span class="go">    b: ivy.array([True, False, False])</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p class="rubric">Instance Method Examples</p>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Array</span></code> inputs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+<span class="go">ivy.array([False, False, False])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+<span class="go">ivy.array([[False, False, False]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)],</span> <span class="p">[</span><span class="o">-</span><span class="mf">6.3</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+<span class="go">ivy.array([[[False],</span>
+<span class="go">        [False],</span>
+<span class="go">        [False]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+<span class="go">ivy.array([[ True, True, False]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+<span class="go">ivy.array([[ True, False,  True, False]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+<span class="go">ivy.array([[False, False, False],</span>
+<span class="go">    [False, False, False],</span>
+<span class="go">    [False, False, False]])</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.NativeArray</span></code> inputs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+<span class="go">ivy.array([[False],</span>
+<span class="go">    [False],</span>
+<span class="go">    [True]])</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> input:
+&gt;&gt;&gt; x = ivy.Container(a=ivy.array([-1, -np.nan, 1.23]),         b=ivy.array([math.nan, 3.3, -4.2]))
+&gt;&gt;&gt; x.isnan()
+{</p>
+<blockquote>
+<div><p>a: ivy.array([False, True, False]),
+b: ivy.array([True, False, False])</p>
+</div></blockquote>
+<p>}</p>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> input:
+&gt;&gt;&gt; x = ivy.Container(a=ivy.array([-1, -np.nan, 1.23]),                           b=ivy.array([math.nan, 3.3, -4.2]))
+&gt;&gt;&gt; z = ivy.Container.static_isnan(x)
+&gt;&gt;&gt; print(z)
+{</p>
+<blockquote>
+<div><p>a: ivy.array([False, True, False]),
+b: ivy.array([True, False, False])</p>
+</div></blockquote>
+<p>}</p>
 </dd></dl>
 
 <div class="line-block">
