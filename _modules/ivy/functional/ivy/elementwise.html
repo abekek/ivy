@@ -2813,7 +2813,6 @@
 <span class="sd">    Instance Method Examples</span>
 <span class="sd">    ------------------------</span>
 <span class="sd">    With :code:`ivy.Array` inputs:</span>
-
 <span class="sd">    &gt;&gt;&gt; x = ivy.array([1, 2, 3])</span>
 <span class="sd">    &gt;&gt;&gt; x.isnan()</span>
 <span class="sd">    ivy.array([False, False, False])</span>
@@ -2851,6 +2850,7 @@
 <span class="sd">        [True]])</span>
 
 <span class="sd">    With :code:`ivy.Container` input:</span>
+
 <span class="sd">    &gt;&gt;&gt; x = ivy.Container(a=ivy.array([-1, -np.nan, 1.23]), \</span>
 <span class="sd">        b=ivy.array([math.nan, 3.3, -4.2]))</span>
 <span class="sd">    &gt;&gt;&gt; x.isnan()</span>
@@ -2870,7 +2870,7 @@
 <span class="sd">        a: ivy.array([False, True, False]),</span>
 <span class="sd">        b: ivy.array([True, False, False])</span>
 <span class="sd">    }</span>
-
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
